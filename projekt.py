@@ -1,4 +1,7 @@
 import requests
+import pathlib
+import os
+import string
 
 def menu():
     print("1. Pobierz plik z internetu ")
@@ -9,35 +12,18 @@ def menu():
     print("6. Wygeneruj raport o uzyciu liter (A-Z) ")
     print("7. Zapisz statystyki z punktow 2-5 do pliku statystyki.txt ")
     print("8. Wyjscie z programu ")
-    choice = int(input("Enter choice: "))
-    return choice
 
-choice = menu()
+plik = 'file.txt'
+global letters, words, DottChars, sentences
+while True:
+    menu()
+    while True:
+        choice = int(input("Enter choice: "))
+        try:
+            if choice >=1 and choice <=8:
+                break
+        except ValueError:
+            choice = -1
 
-if choice==1:
-    url = "http://s3.zylowski.net/public/input/5.txt"
-    r = requests.get(url)
-    with open('file.txt', 'w') as file:
-        file.write(r.text.encode('UTF-8'))
+        print("Please select good value \n")
 
-elif choice == 3:
-    plik = open('file.txt')
-    try:
-        tekst = plik.read()
-    finally:
-        plik.close()
-
-    data = tekst.split(" ")
-    num_of_words = len(data)
-    print('Count in text file :', num_of_words)
-
-elif choice == 5:
-    plik = open('file.txt')
-    try:
-        tekst = plik.read()
-    finally:
-        plik.close()
-
-    data = tekst.split(".")
-    num_of_char = len(data)
-    print('Count in text file :', num_of_char)
